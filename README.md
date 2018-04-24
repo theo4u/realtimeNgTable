@@ -26,6 +26,19 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 Using `gh-pages` to host our angular app. All thanks to 
 * [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpages) for pushing to gh-page 👍, check `deploy script` [package.json](package.json)
 
+## What the app should do
+* [ ] add new record 
+* [ ] edit record
+* [ ] delete record
+* [ ] live update listener (should show indication on a row that something just happened)
+  * [ ] update event
+  * [ ] delete event
+  * [ ] edit event
+  * [ ] new event
+
+## Dependecies
+* [Bootstrap](https://github.com/twbs/bootstrap) : just the css was used, check [.angular-cli.json](.angular-cli.json) **styles** array where it was added to the project
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
