@@ -2,6 +2,20 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
 
+## What the app should do
+* [ ] add new record 
+* [ ] edit record
+* [ ] delete record
+* [ ] live update listener (should show indication on a row that something just happened)
+  * [ ] update event
+  * [ ] delete event
+  * [ ] edit event
+  * [ ] new event
+
+## Dependecies
+* [Bootstrap](https://github.com/twbs/bootstrap) : just the css was used, check [.angular-cli.json](.angular-cli.json) **styles** array where it was added to the project
+* [ngAlert](https://github.com/theo4u/ngAlert) : Used in showing app-level alert error message, check [app.component.ts](src/app/app.component.ts), also the [styles.css](src/styles.css) and don't forget to import it to your [app.module.ts](src/app/app.module.ts), **imports** array 
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
@@ -25,20 +39,6 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Deployment
 Using `gh-pages` to host our angular app. All thanks to 
 * [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpages) for pushing to gh-page 👍, check `deploy script` [package.json](package.json)
-
-## What the app should do
-* [ ] add new record 
-* [ ] edit record
-* [ ] delete record
-* [ ] live update listener (should show indication on a row that something just happened)
-  * [ ] update event
-  * [ ] delete event
-  * [ ] edit event
-  * [ ] new event
-
-## Dependecies
-* [Bootstrap](https://github.com/twbs/bootstrap) : just the css was used, check [.angular-cli.json](.angular-cli.json) **styles** array where it was added to the project
-* [ngAlert](https://github.com/theo4u/ngAlert) : Used in showing app-level alert error message, check [app.component.ts](src/app/app.component.ts), also the [styles.css](src/styles.css) and don't forget to import it to your [app.module.ts](src/app/app.module.ts), **imports** array 
 
 ## Further help
 
