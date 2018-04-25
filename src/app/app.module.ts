@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
 import { ListEmployeeComponent } from './list-employee/list-employee.component';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
+import { EmployeeService } from './services/employee.service';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
     BrowserModule,
     NgAlertModule
   ],
-  providers: [],
+  providers: [EmployeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

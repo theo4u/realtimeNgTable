@@ -2,3 +2,8 @@
 @import "../node_modules/@theo4u/ng-alert/style.css";
 
 .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+/* ngAlert customization */
+.app-level-alert {
+  padding-top: 10px;
+}
