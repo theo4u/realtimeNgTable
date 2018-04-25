@@ -1,26 +1,20 @@
 import { Injectable } from '@angular/core';
 import { IEmployee } from '../interfaces/iemployee';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mapTo';
 
 @Injectable()
 export class EmployeeService {
-private _mock: IEmployee[] = [];
+private _endPoint = 'http://localhost:2000/employee'; // normally you use environment.ts
 
-constructor() {
-  for (let i = 0; i < 5; i++) {
-    this._mock.push({
-      name: 'Data ' + i,
-      id: i,
-      position: 'Manager',
-      salary: '$340' + i,
-      createdAt: new Date().toISOString()
-    });
-  }
+constructor(private _http: HttpClient) {
 }
 
 list (): Observable<IEmployee[]> {
-  return Observable.of(this._mock);
+  return this._http.get(this._endPoint)
+  .map(res => <IEmployee[]> res);
 }
 
 /**
@@ -29,10 +23,8 @@ list (): Observable<IEmployee[]> {
  * @return Observable<IEmployee> with the id
  */
 create(param: IEmployee): Observable<IEmployee> {
-  param.id = this._mock.length;
-  param.createdAt = new Date().toISOString();
-  this._mock.push(param);
-  return Observable.of(param);
+  return this._http.post(this._endPoint, param)
+  .map(res => <IEmployee> res);
 }
 
 /**
@@ -41,23 +33,8 @@ create(param: IEmployee): Observable<IEmployee> {
  * @return Observable<IEmployee> the employee just removed
  */
 delete(employee: IEmployee): Observable<IEmployee> {
-  this._mock = this._mock.filter(emp => emp.id !== employee.id);
-  return Observable.of(employee);
+  return this._http.delete(`${this._endPoint}/${employee.id}`)
+  .mapTo(employee);
 }
-
-/**
- * Update an employee using the employee id
- * @param param:Object what to update with in the employee
- * @return Observable<IEmployee>
- */
-edit(param: {[key: string]: any}, id): Observable<IEmployee> {
-  const index = this._mock.findIndex(emp => emp.id === id);
-  this._mock[index] = {
-    ...this._mock[index],
-    ...param
-  };
-  return Observable.of(this._mock[index]);
-}
-
 
 }
