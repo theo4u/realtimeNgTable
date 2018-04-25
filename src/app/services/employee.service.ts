@@ -8,7 +8,7 @@ export class EmployeeService {
 private _mock: IEmployee[] = [];
 
 constructor() {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 5; i++) {
     this._mock.push({
       name: 'Data ' + i,
       id: i,

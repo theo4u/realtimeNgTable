@@ -7,6 +7,7 @@ import { CreateEmployeeComponent } from './create-employee/create-employee.compo
 import { ListEmployeeComponent } from './list-employee/list-employee.component';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { EmployeeService } from './services/employee.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { EmployeeService } from './services/employee.service';
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     NgAlertModule
   ],
   providers: [EmployeeService],
