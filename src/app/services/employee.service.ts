@@ -8,7 +8,7 @@ import { PusherService } from './pusher.service';
 
 @Injectable()
 export class EmployeeService {
-private _endPoint = 'http://localhost:2000/employee'; // normally you use environment.ts
+private _endPoint = 'https://realtime-ng-table.herokuapp.com/employee'; // http://localhost:2000/employee // normally you use environment.ts
 private _channel: any;
 
 constructor(private _http: HttpClient, private _pusherService: PusherService) {
