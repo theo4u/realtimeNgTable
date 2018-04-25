@@ -67914,10 +67914,10 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Version */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return NgAlertService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return NgAlertService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CloseType; });
-/* unused harmony export MessageType */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return NgAlertModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MessageType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return NgAlertModule; });
 /* unused harmony export ɵa */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("./node_modules/@angular/common/esm5/common.js");
@@ -69210,6 +69210,21 @@ function flattenUnsubscriptionErrors(errors) {
 
 /***/ }),
 
+/***/ "./node_modules/rxjs/_esm5/add/observable/of.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__("./node_modules/rxjs/_esm5/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__observable_of__ = __webpack_require__("./node_modules/rxjs/_esm5/observable/of.js");
+/** PURE_IMPORTS_START .._.._Observable,.._.._observable_of PURE_IMPORTS_END */
+
+
+__WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */].of = __WEBPACK_IMPORTED_MODULE_1__observable_of__["a" /* of */];
+//# sourceMappingURL=of.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/rxjs/_esm5/observable/ArrayObservable.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -69792,6 +69807,20 @@ function merge() {
     return Object(__WEBPACK_IMPORTED_MODULE_3__operators_mergeAll__["a" /* mergeAll */])(concurrent)(new __WEBPACK_IMPORTED_MODULE_1__ArrayObservable__["a" /* ArrayObservable */](observables, scheduler));
 }
 //# sourceMappingURL=merge.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/rxjs/_esm5/observable/of.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return of; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ArrayObservable__ = __webpack_require__("./node_modules/rxjs/_esm5/observable/ArrayObservable.js");
+/** PURE_IMPORTS_START ._ArrayObservable PURE_IMPORTS_END */
+
+var of = __WEBPACK_IMPORTED_MODULE_0__ArrayObservable__["a" /* ArrayObservable */].of;
+//# sourceMappingURL=of.js.map
 
 
 /***/ }),
