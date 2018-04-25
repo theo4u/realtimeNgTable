@@ -4,12 +4,22 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mapTo';
+import { PusherService } from './pusher.service';
 
 @Injectable()
 export class EmployeeService {
 private _endPoint = 'http://localhost:2000/employee'; // normally you use environment.ts
+private _channel: any;
 
-constructor(private _http: HttpClient) {
+constructor(private _http: HttpClient, private _pusherService: PusherService) {
+  this._channel = this._pusherService.getPusher().subscribe('employee');
+}
+
+/**
+ * @return employee's channel for the different event available under employee
+ */
+getChannel () {
+  return this._channel;
 }
 
 list (): Observable<IEmployee[]> {

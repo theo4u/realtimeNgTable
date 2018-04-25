@@ -11,7 +11,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let employee of employees">
-      <td>{{employee.name}}</td>
+      <td>
+       <span *ngIf="employee.new" class="badge badge-primary">new</span> {{employee.name}}
+      </td>
       <td>{{employee.position}}</td>
       <td>{{employee.salary}}</td>
       <td>{{employee.createdAt | date:'yyyy/MM/dd'}}</td>

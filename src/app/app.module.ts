@@ -9,6 +9,7 @@ import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { EmployeeService } from './services/employee.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PusherService } from "./services/pusher.service";
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     NgAlertModule,
     HttpClientModule
   ],
-  providers: [EmployeeService],
+  providers: [EmployeeService, PusherService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
