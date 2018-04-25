@@ -19,7 +19,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Run `npm run server` it follows [Twelve-Factor](https://12factor.net/) for handling environment variables listed below
+  * `PUSHER_APPID`
+  * `PUSHER_KEY`
+  * `PUSHER_SECRET`
+  * `PUSHER_CLUSTER`
+e.g `PUSHER_APPID=[appId] npm run server` then http://localhost:2000/employee (supports `POST`, `GET`, `DELETE`)
+
 
 ## Code scaffolding
 
