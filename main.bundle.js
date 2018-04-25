@@ -92,12 +92,16 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__edit_employee_edit_employee_component__ = __webpack_require__("./src/app/edit-employee/edit-employee.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_employee_service__ = __webpack_require__("./src/app/services/employee.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__services_pusher_service__ = __webpack_require__("./src/app/services/pusher.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -121,9 +125,10 @@ var AppModule = /** @class */ (function () {
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_8__angular_forms__["b" /* ReactiveFormsModule */],
-                __WEBPACK_IMPORTED_MODULE_2__theo4u_ng_alert__["c" /* NgAlertModule */]
+                __WEBPACK_IMPORTED_MODULE_2__theo4u_ng_alert__["c" /* NgAlertModule */],
+                __WEBPACK_IMPORTED_MODULE_9__angular_common_http__["b" /* HttpClientModule */]
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_7__services_employee_service__["a" /* EmployeeService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_7__services_employee_service__["a" /* EmployeeService */], __WEBPACK_IMPORTED_MODULE_10__services_pusher_service__["a" /* PusherService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -255,7 +260,7 @@ var EditEmployeeComponent = /** @class */ (function () {
 /***/ "./src/app/list-employee/list-employee.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h6 class=\"pb-2 mb-0\">Employees</h6>\n<table class=\"table\">\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Position</th>\n      <th scope=\"col\">Salary</th>\n      <th scope=\"col\">Created At</th>\n      <th scope=\"col\">Actions</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr *ngFor=\"let employee of employees\">\n      <td>{{employee.name}}</td>\n      <td>{{employee.position}}</td>\n      <td>{{employee.salary}}</td>\n      <td>{{employee.createdAt | date:'yyyy/MM/dd'}}</td>\n      <td>\n        <button class=\"btn btn-primary btn-sm\">\n          <span class=\"oi oi-pencil\"></span>\n        </button>\n        <button (click)=\"delete(employee)\" class=\"btn btn-danger btn-sm\">\n          <span class=\"oi oi-trash\"></span>\n        </button>\n      </td>\n    </tr>\n    <tr *ngIf=\"loading\">\n     <td colspan=\"5\" align=\"center\">Fetching Employees</td>\n    </tr>\n  </tbody>\n</table>\n"
+module.exports = "<h6 class=\"pb-2 mb-0\">Employees</h6>\n<table class=\"table\">\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Position</th>\n      <th scope=\"col\">Salary</th>\n      <th scope=\"col\">Created At</th>\n      <th scope=\"col\">Actions</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr *ngFor=\"let employee of employees\">\n      <td>\n       <span *ngIf=\"employee.new\" class=\"badge badge-primary\">new</span> {{employee.name}}\n      </td>\n      <td>{{employee.position}}</td>\n      <td>{{employee.salary}}</td>\n      <td>{{employee.createdAt | date:'yyyy/MM/dd'}}</td>\n      <td>\n        <button class=\"btn btn-primary btn-sm\">\n          <span class=\"oi oi-pencil\"></span>\n        </button>\n        <button (click)=\"delete(employee)\" class=\"btn btn-danger btn-sm\">\n          <span class=\"oi oi-trash\"></span>\n        </button>\n      </td>\n    </tr>\n    <tr *ngIf=\"loading\">\n     <td colspan=\"5\" align=\"center\">Fetching Employees</td>\n    </tr>\n  </tbody>\n</table>\n"
 
 /***/ }),
 
@@ -293,6 +298,14 @@ var ListEmployeeComponent = /** @class */ (function () {
             .subscribe(function (employees) {
             _this.loading = false;
             _this.employees = employees;
+        });
+        // subscribe to pusher's event
+        this._employeeService.getChannel().bind('new', function (data) {
+            data.new = true;
+            _this.employees.push(data);
+        });
+        this._employeeService.getChannel().bind('deleted', function (data) {
+            _this.employees = _this.employees.filter(function (emp) { return emp.id !== data.id; });
         });
     };
     ListEmployeeComponent.prototype.delete = function (employee) {
@@ -345,16 +358,10 @@ var ListEmployeeComponent = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EmployeeService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__("./node_modules/rxjs/_esm5/Observable.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_of__ = __webpack_require__("./node_modules/rxjs/_esm5/add/observable/of.js");
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mapTo__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/mapTo.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pusher_service__ = __webpack_require__("./src/app/services/pusher.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -367,21 +374,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var EmployeeService = /** @class */ (function () {
-    function EmployeeService() {
-        this._mock = [];
-        for (var i = 0; i < 5; i++) {
-            this._mock.push({
-                name: 'Data ' + i,
-                id: i,
-                position: 'Manager',
-                salary: '$340' + i,
-                createdAt: new Date().toISOString()
-            });
-        }
+    function EmployeeService(_http, _pusherService) {
+        this._http = _http;
+        this._pusherService = _pusherService;
+        this._endPoint = 'https://realtime-ng-table.herokuapp.com/employee'; // http://localhost:2000/employee // normally you use environment.ts
+        this._channel = this._pusherService.getPusher().subscribe('employee');
     }
+    /**
+     * @return employee's channel for the different event available under employee
+     */
+    EmployeeService.prototype.getChannel = function () {
+        return this._channel;
+    };
     EmployeeService.prototype.list = function () {
-        return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["a" /* Observable */].of(this._mock);
+        return this._http.get(this._endPoint)
+            .map(function (res) { return res; });
     };
     /**
      * Create new employee
@@ -389,10 +399,8 @@ var EmployeeService = /** @class */ (function () {
      * @return Observable<IEmployee> with the id
      */
     EmployeeService.prototype.create = function (param) {
-        param.id = this._mock.length;
-        param.createdAt = new Date().toISOString();
-        this._mock.push(param);
-        return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["a" /* Observable */].of(param);
+        return this._http.post(this._endPoint, param)
+            .map(function (res) { return res; });
     };
     /**
      * Remove an employee
@@ -400,24 +408,56 @@ var EmployeeService = /** @class */ (function () {
      * @return Observable<IEmployee> the employee just removed
      */
     EmployeeService.prototype.delete = function (employee) {
-        this._mock = this._mock.filter(function (emp) { return emp.id !== employee.id; });
-        return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["a" /* Observable */].of(employee);
-    };
-    /**
-     * Update an employee using the employee id
-     * @param param:Object what to update with in the employee
-     * @return Observable<IEmployee>
-     */
-    EmployeeService.prototype.edit = function (param, id) {
-        var index = this._mock.findIndex(function (emp) { return emp.id === id; });
-        this._mock[index] = __assign({}, this._mock[index], param);
-        return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["a" /* Observable */].of(this._mock[index]);
+        return this._http.delete(this._endPoint + "/" + employee.id)
+            .mapTo(employee);
     };
     EmployeeService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* Injectable */])(),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_4__pusher_service__["a" /* PusherService */]])
     ], EmployeeService);
     return EmployeeService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/pusher.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PusherService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pusher_js__ = __webpack_require__("./node_modules/pusher-js/dist/web/pusher.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_pusher_js__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+// this is here to discourage the entire system of creating pusher any where its
+// needed, better to reference it from one place
+var PusherService = /** @class */ (function () {
+    function PusherService() {
+        this._pusher = new __WEBPACK_IMPORTED_MODULE_1_pusher_js__('b8488e0a8f8bcb7f909a', {
+            cluster: 'eu',
+            encrypted: true
+        });
+    }
+    PusherService.prototype.getPusher = function () {
+        return this._pusher;
+    };
+    PusherService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* Injectable */])(),
+        __metadata("design:paramtypes", [])
+    ], PusherService);
+    return PusherService;
 }());
 
 
