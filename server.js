@@ -42,4 +42,4 @@ app.get('/employee', (req, res) => {
   res.send(mocks)
 })
 
-app.listen(2000, () => console.log('Listening at 2000'))
+app.listen(process.env.PORT || 2000, () => console.log('Listening at 2000'))
