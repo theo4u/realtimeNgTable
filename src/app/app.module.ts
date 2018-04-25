@@ -9,7 +9,7 @@ import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { EmployeeService } from './services/employee.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { PusherService } from "./services/pusher.service";
+import { PusherService } from './services/pusher.service';
 
 
 @NgModule({
