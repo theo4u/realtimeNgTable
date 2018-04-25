@@ -91,12 +91,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__list_employee_list_employee_component__ = __webpack_require__("./src/app/list-employee/list-employee.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__edit_employee_edit_employee_component__ = __webpack_require__("./src/app/edit-employee/edit-employee.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_employee_service__ = __webpack_require__("./src/app/services/employee.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -118,6 +120,7 @@ var AppModule = /** @class */ (function () {
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
+                __WEBPACK_IMPORTED_MODULE_8__angular_forms__["b" /* ReactiveFormsModule */],
                 __WEBPACK_IMPORTED_MODULE_2__theo4u_ng_alert__["c" /* NgAlertModule */]
             ],
             providers: [__WEBPACK_IMPORTED_MODULE_7__services_employee_service__["a" /* EmployeeService */]],
@@ -134,7 +137,7 @@ var AppModule = /** @class */ (function () {
 /***/ "./src/app/create-employee/create-employee.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  create-employee works!\n</p>\n"
+module.exports = "<h6 class=\"pb-2 mb-0\">Create Employees</h6>\n\n<form [formGroup]=\"employeeForm\" (ngSubmit)=\"onSubmit()\" novalidate>\n  <div class=\"form-group\">\n    <label for=\"name\">Name</label>\n    <input formControlName=\"name\" type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Christian Nwamba\">\n     <small *ngIf=\"employeeForm.get('name').hasError('required')\" class=\"form-text text-danger\">Name is required.</small>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"position\">Position</label>\n    <select formControlName=\"position\" class=\"form-control\" id=\"position\">\n      <option>Manager</option>\n      <option>Hr</option>\n      <option>Developer</option>\n    </select>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"salary\">Salary</label>\n    <input formControlName=\"salary\" type=\"text\" class=\"form-control\" id=\"salary\" placeholder=\"$12,000\">\n    <small *ngIf=\"employeeForm.get('salary').hasError('required')\" class=\"form-text text-danger\">Salary is required.</small>\n  </div>\n  <button type=\"submit\" [disabled]=\"loader || employeeForm.invalid\" class=\"btn btn-primary\">{{loader?'Adding':'Add'}}</button>\n</form>\n"
 
 /***/ }),
 
@@ -144,6 +147,8 @@ module.exports = "<p>\n  create-employee works!\n</p>\n"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CreateEmployeeComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_employee_service__ = __webpack_require__("./src/app/services/employee.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -154,10 +159,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var CreateEmployeeComponent = /** @class */ (function () {
-    function CreateEmployeeComponent() {
+    function CreateEmployeeComponent(_fb, _employeeService) {
+        this._fb = _fb;
+        this._employeeService = _employeeService;
     }
     CreateEmployeeComponent.prototype.ngOnInit = function () {
+        this._createForm();
+    };
+    /**
+     * create our reactive form here
+     */
+    CreateEmployeeComponent.prototype._createForm = function () {
+        this.employeeForm = this._fb.group({
+            name: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* Validators */].required],
+            position: ['Manager', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* Validators */].required],
+            salary: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* Validators */].required]
+        });
+    };
+    /**
+     * submit new employee to server
+     */
+    CreateEmployeeComponent.prototype.onSubmit = function () {
+        var _this = this;
+        var param = this.employeeForm.value;
+        this._employeeService.create(param)
+            .subscribe(function (employee) {
+            _this.loader = false;
+            _this.employeeForm.reset({ position: 'Manager' });
+        }, function (error) {
+            console.error(error);
+            _this.loader = false;
+        });
     };
     CreateEmployeeComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
@@ -165,7 +200,7 @@ var CreateEmployeeComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/create-employee/create-employee.component.html"),
             styles: []
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_2__services_employee_service__["a" /* EmployeeService */]])
     ], CreateEmployeeComponent);
     return CreateEmployeeComponent;
 }());
@@ -335,7 +370,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var EmployeeService = /** @class */ (function () {
     function EmployeeService() {
         this._mock = [];
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 5; i++) {
             this._mock.push({
                 name: 'Data ' + i,
                 id: i,
@@ -419,7 +454,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* enableProdMode */])();
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_7" /* enableProdMode */])();
 }
 Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */])
     .catch(function (err) { return console.log(err); });
