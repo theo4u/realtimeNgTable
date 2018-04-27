@@ -1,21 +1,17 @@
 # RealtimeNgTable
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
+We are going to  be creating a realtime table, where we don’t need to refresh our page or component anytime there’s a change to our table’s data, our table should immediately update based on the current state of the data.
 
-## What the app should do
-* [ ] List record 
-* [ ] add new record 
-* [ ] edit record
-* [ ] delete record
-* [ ] live update listener (should show indication on a row that something just happened)
-  * [ ] update event
-  * [ ] delete event
-  * [ ] edit event
-  * [ ] new event
+## Getting Started
 
-## Dependecies
-* [Bootstrap](https://github.com/twbs/bootstrap) : just the css was used, check [.angular-cli.json](.angular-cli.json) **styles** array where it was added to the project
-* [ngAlert](https://github.com/theo4u/ngAlert) : Used in showing app-level alert error message, check [app.component.ts](src/app/app.component.ts), also the [styles.css](src/styles.css) and don't forget to import it to your [app.module.ts](src/app/app.module.ts), **imports** array 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Prerequisites
+
+* [Download](https://nodejs.org/en/download/) Node and npm 
+* [angular cli](https://github.com/angular/angular-cli) `npm install -g @angular/cli`
+* `npm install` to install all our node dependencies 
+
 
 ## Development server
 
@@ -45,9 +41,12 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Deployment
-Using `gh-pages` to host our angular app. All thanks to 
-* [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpages) for pushing to gh-page 👍, check `deploy script` [package.json](package.json)
+Using `gh-pages` to host our angular app. Run `npm run deploy` to build and send to gh-pages  
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Built With
+
+* [Pusher](https://pusher.com/) - APIs to enable devs building realtime features
+* [Angular](https://angular.io/) - Frontend framework that makes it easy to build  application with the web
+* [Express](https://expressjs.com/) - Used for our APIs server
+
