@@ -21,8 +21,20 @@ These instructions will get you a copy of the project up and running on your loc
   * `PUSHER_KEY`
   * `PUSHER_SECRET`
   * `PUSHER_CLUSTER`
+  
 e.g `PUSHER_APPID=[appId] npm run server` then http://localhost:2000/employee (supports `POST`, `GET`, `DELETE`)
 
+or Create a `.env` file with the above variables above, like so
+```sh
+    PUSHER_APPID=YOUR_APP_ID
+    PUSHER_KEY=YOUR_APP_KEY
+    PUSHER_SECRET=YOUR_APP_SECRET
+    PUSHER_CLUSTER=YOUR_APP_CLUSTER
+```
+and run the below in your terminal
+```sh 
+npm run server
+```
 
 ## Code scaffolding
 
