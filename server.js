@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const Pusher = require('pusher')
 const cors = require('cors')
+require('dotenv').config()
 const shortId = require('shortid')
 let mocks = require('./mocks')
 
