@@ -2,6 +2,8 @@
 
 We are going to  be creating a realtime table, where we don’t need to refresh our page or component anytime there’s a change to our table’s data, our table should immediately update based on the current state of the data.
 
+![](screenshot/preview.gif)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
